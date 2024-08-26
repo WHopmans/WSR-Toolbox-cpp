@@ -54,15 +54,29 @@ int main(int argc, char *argv[]){
     nlohmann::json true_positions_tx = run_module.__precompute_config["true_tx_positions"];
     auto all_true_AOA = utils.get_true_aoa(displacement_rx, true_positions_tx); //Fix this when using moving ends.
 
+    
+    std::cout << "log [main]: Preprocessing Displacement " << std::endl;
+    antenna_offset_true = run_module.__precompute_config["antenna_position_offset"]["mocap_offset"].get<std::vector<double>>(); 
+    if (__d_type == "gt")
+        antenna_offset = antenna_offset_true;
+    else if (__d_type == "t265")
+        antenna_offset = run_module.__precompute_config["antenna_position_offset"]["t265_offset"].get<std::vector<double>>();
+    else if (__d_type == "odom")
+        antenna_offset = run_module.__precompute_config["antenna_position_offset"]["odom_offset"].get<std::vector<double>>();
+
+    std::cout << "log [main]: Got offset " << std::endl;
+
     if(run_module.get__FLAG_two_antenna())
     {
         //Does not require TX_SAR_Robot CSI files
         std::cout << "log [main]: Preprocessing Displacement " << std::endl;
-        auto return_val = utils.formatTrajectory_v2(displacement_rx,antenna_offset,pos,__d_type,__Flag_get_mean_pos,true);
+        //auto return_val = utils.formatTrajectory_v2(displacement_rx,antenna_offset,pos,__d_type,__Flag_get_mean_pos,true);
+        auto return_val = utils.formatDisplacementTwoAntenna(displacement_rx,__d_type);
         // auto true_return_val = utils.formatTrajectory_v2(true_trajectory_rx,antenna_offset_true,true_pos,__Flag_get_mean_pos,true);
         displacement_timestamp = return_val.first;
         displacement = return_val.second;
         
+        std::cout << "log [main]: Getting AOA using CSI conjugate " << std::endl;
         run_module.calculate_AOA_using_csi_conjugate(rx_robot_csi,displacement,displacement_timestamp);
         // run_module.calculate_AOA_using_csi_conjugate_multiple(rx_robot_csi,displacement,displacement_timestamp);
     }
@@ -106,17 +120,6 @@ int main(int argc, char *argv[]){
             std::string traj_fn_tx = utils.__homedir + trajectory_file_tx;
             trajectory_tx = utils.load_Displacement_From_CSV(traj_fn_tx);
         }
-        
-        std::cout << "log [main]: Preprocessing Displacement " << std::endl;
-        antenna_offset_true = run_module.__precompute_config["antenna_position_offset"]["mocap_offset"].get<std::vector<double>>(); 
-        if (__d_type == "gt")
-            antenna_offset = antenna_offset_true;
-        else if (__d_type == "t265")
-            antenna_offset = run_module.__precompute_config["antenna_position_offset"]["t265_offset"].get<std::vector<double>>();
-        else if (__d_type == "odom")
-            antenna_offset = run_module.__precompute_config["antenna_position_offset"]["odom_offset"].get<std::vector<double>>();
-
-        std::cout << "log [main]: Got offset " << std::endl;
         
         if(bool(run_module.__precompute_config["use_relative_trajectory"]["value"]))
         {          
