@@ -237,6 +237,10 @@ class WSR_Module
             EigenDoubleMatrix &e_term,
             EigenDoubleMatrix &eigen_yaw_list
         );
+        void get_bterm_all_subcarrier_conjugate_3D(
+            EigenDoubleMatrix &e_term,
+            EigenDoubleMatrix &eigen_yaw_list
+        );
         void getExponential(
             EigencdMatrix &out, 
             EigencdMatrix &in
