@@ -1,0 +1,11 @@
+log [calculate_AOA_profile] Top azimuth angle 1 : -180.000000000000000
+Phi idx = 0, theta idx = 21
+log [calculate_AOA_profile] profile variance 1 : 0.677317619323730
+log [calculate_AOA_profile] Top azimuth angle 2 : 162.952646239554269
+Phi idx = 342, theta idx = 0
+log [calculate_AOA_profile] Top azimuth angle 3 : 1.504178272980484
+Phi idx = 181, theta idx = 0
+log [calculate_AOA_profile] Top azimuth angle 4 : -88.746518105849603
+Phi idx = 91, theta idx = 0
+log [calculate_AOA_profile] Top azimuth angle 5 : 47.632311977715858
+Phi idx = 227, theta idx = 0
