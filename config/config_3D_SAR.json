@@ -9,7 +9,7 @@
     },
     "channel": {
         "desc": "Wireless channel used in the 5.0 GHz range",
-        "value": 104
+        "value": 108
     },
     "scnum_start":{
         "desc":"starting subcarrier number music/bartlett. Total subcarriers 30, start 0, mid 15, end  30 ",
@@ -65,74 +65,39 @@
               "w": 0
             }
           },
-          "tx1":{
-              "position":{ 
-              "x": -2.48014688492,
-              "y": -0.0483481697738,
-              "z": 0.97895771265
-              },
-              "orientation": {
-                "x": 0.0168978497386,
-                "y":-0.006858184468,
-                "z": 0.453646808863,
-                "w": -0.890995025635
-              }
-            },
+            "tx1":{
+                "position":{ 
+                "x": 0,
+                "y": 0,
+                "z": 0
+                },
+                "orientation": {
+                "x": 0,
+                "y": 0,
+                "z": 0,
+                "w": 0
+                }
+                },
             "tx2":{
-              "position":{ 
-              "x": -2.42,
-              "y": 2.65,
-              "z": 0.72
-              },
-              "orientation": {
+                "position":{ 
+                "x": 0,
+                "y": 0,
+                "z": 0
+                },
+                "orientation": {
                 "x": 0,
                 "y": 0,
                 "z": 0,
                 "w": 0
-              }
-            },
-            "tx3":{
-              "position":{ 
-              "x": 2.53,
-              "y": -2.65,
-              "z": 0.85
-              },
-              "orientation": {
-                "x": 0,
-                "y": 0,
-                "z": 0,
-                "w": 0
-              }
-            },
-            "tx4":{
-              "position":{ 
-              "x": -3.73,
-              "y": -1.49,
-              "z": 0.35
-              },
-              "orientation": {
-                "x": 0,
-                "y": 0,
-                "z": 0,
-                "w": 0
-              }
-            }
+                }
+          }
         }
       },
     "other_robot_ID":{
         "desc":"MAC-IDs of other robots (denoted as signal transmitters tx) in the team",
         "value":{
             "tx1":{
-                "mac_id":"00:21:6A:3F:16:DA"
-            },
-            "tx2":{
-                "mac_id":"00:21:6A:30:D2:3C"
-            },
-            "tx3":{
-                "mac_id":"00:21:6A:3F:17:5A"
-            },
-            "tx4":{
-                "mac_id":"00:21:6A:AC:9C:6A"
+                "mac_id":"00:21:6A:B7:7C:6C"
             }
         }
     },
@@ -140,58 +105,30 @@
         "desc":"Forward channel csi File for each of the neighboring TX robots",
         "value":{
             "tx1":{
-                "mac_id":"00:21:6A:3F:16:DA",
-                "csi_fn":"/WSR_Project/WSR-Toolbox-cpp/data/Sample_data/single_antenna/csi_tx1_2021-06-27_202550.dat"            
-            },
-            "tx2":{
-                "mac_id":"00:21:6A:3F:17:5A",
-                "csi_fn":"/WSR_Project/WSR-Toolbox-cpp/data/Sample_data/single_antenna/csi_tx2_2021-06-27_202550.dat"            
-            },
-            "tx3":{
-                "mac_id":"00:21:6A:30:D2:3C",
-                "csi_fn":"/WSR_Project/WSR-Toolbox-cpp/data/Sample_data/single_antenna/csi_tx3_2021-06-27_202550.dat"            
-            },
-            "tx4":{
-                "mac_id":"00:21:6A:B2:6E:FA",
-                "csi_fn":"/WSR_Project/WSR-Toolbox-cpp/data/Sample_data/single_antenna/csi_tx4_2021-06-27_202550.dat"
+                "mac_id":"00:21:6A:B7:7C:6C",
+                "csi_fn":"Downloads/WSR-Toolbox-cpp/data/Sample_data/two_antenna/csi_tx.dat"            
             }
         }
     },
     "RX_mac_ID_list":{
         "desc":"List of all mac-ids",
-        "value_spoof":["00:21:6A:3F:16:DA","00:21:6A:30:D2:3C","00:21:6A:3F:17:5A","00:21:6A:AC:9C:6A","00:21:6A:AC:9C:1","00:21:6A:3F:17:1"],
-        "value":["00:21:6A:3F:16:DA","00:21:6A:30:D2:3C","00:21:6A:AC:9C:6A","00:21:6A:3F:17:5A"]
+        "value_spoof":["00:21:6A:69:51:7A"],
+        "value":["00:21:6A:69:51:7A"]
     },
     "input_RX_channel_csi_fn":{
         "desc":"Reverse channel csi File stored on the RX robot which is performing 3D SAR",
         "value":{           
-            "mac_id":"00:21:6A:53:89:D2",
-            "csi_fn":"/WSR_Project/WSR-Toolbox-cpp/data/Sample_data/single_antenna/csi_rx_2021-06-27_202550.dat"
+            "mac_id":"00:21:6A:69:51:7A",
+            "csi_fn":"/Downloads/WSR-Toolbox-cpp/data/Sample_data/two_antenna/csi_rx.dat"
         }
     },
     "input_displacement_csv_fn_rx":{
         "desc":"Groundtruth motion capture displacement file (gt)",
-        "value":"/WSR_Project/WSR-Toolbox-cpp/data/Sample_data/single_antenna/rx_trajectory_2021-06-27_202550_.csv"
-    },
-    "input_displacement_csv_fn_rx_t265":{
-        "desc":"Onboard sensor Intel T265 VIO camera displacement file (t265)",
-        "value":"/WSR_Project/WSR-Toolbox-cpp/data/Sample_data/single_antenna/t265_rx_trajectory_2021-06-27_202550_.csv"
-    },
-    "input_displacement_csv_fn_rx_odom":{
-        "desc":"Onboard odometer displacement file (odom)",
-        "value":"/WSR_Project/WSR-Toolbox-cpp/data/Sample_data/single_antenna/odom_rx_trajectory_2021-06-27_202550.csv"
-    },
-    "input_orientation_csv_fn_rx_joint":{
-        "desc":"Orientation of indepdendently rotating platform (only supports 2D)",
-        "value":"/catkin_ws/src/wsr_exploration/data/motorjoint_displacement_2022-10-19_171432.csv"
-    },
-    "input_trajectory_csv_fn_tx":{
-        "desc":"Trajectory file of TX_Neighbor_robot (WIP)",
-        "value":"/WSR_Project/WSR-Toolbox-cpp/data/Sample_data/single_antenna/tx_trajectory_2021-06-27_174307.csv"
+        "value":"/Downloads/WSR-Toolbox-cpp/data/Sample_data/two_antenna/gt_displacement_2024-08-22_141518.csv"
     },
     "output_aoa_profile_path":{
         "desc":"AOA profile",
-        "value":"/WSR_Project/WSR-Toolbox-cpp/debug/"
+        "value":"/Downloads/WSR-Toolbox-cpp/debug/"
     },
     "max_packets_to_process":{
         "desc":"Maximum number of csi packets to process",
@@ -203,7 +140,7 @@
     },
     "debug_dir":{
         "desc":"dir to save intermediate data files for debugging",
-        "value":"/WSR_Project/WSR-Toolbox-cpp/debug/"
+        "value":"/Downloads/WSR-Toolbox-cpp/debug/"
     },
     "time_offset": {
         "desc": "offset for time diff on different robots",
@@ -219,7 +156,7 @@
     },
     "displacement_type": {
         "desc" : "Motion of robot: 2D, 3D. Impacts steering vector calculation for faster computation",
-        "value": "2D"
+        "value": "3D"
     },
     "antenna_position_offset": {
         "desc": "offset between center of displacement center and antenna tip (meters)",
@@ -233,7 +170,7 @@
     },
     "antenna_separation":{
         "desc": "(meters) Used with complex conjugate channel formulation",
-        "value": 0.27
+        "value": 0.12
     },
     "aoa_estimator":{
         "desc": "use one of the following estimators : bartlett",
@@ -274,6 +211,6 @@
     "use_two_antennas":
     {
         "desc":"Use 2 antenna SAR formulation and complex conjugate to correct for CFO",
-        "value":false
+        "value": true
     }
 }
