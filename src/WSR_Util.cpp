@@ -837,13 +837,14 @@ std::pair<int,int> WSR_Util::returnClosestIndices(const nc::NdArray<double>& csi
     double max_timestamp = trajectory_timestamp(-1,0);
     
     std::cout.precision(9);
-    // std::cout << fixed << min_timestamp << ", " << max_timestamp << std::endl;
+    std::cout << fixed << min_timestamp << ", " << max_timestamp << std::endl;
 
     auto startIndexes = nc::argwhere(csi_timestamp > min_timestamp);
     auto endIndexes = nc::argwhere(csi_timestamp <= max_timestamp);
     
-    // std::cout << startIndexes.shape() << std::endl;
-    // std::cout << endIndexes.shape() << std::endl;
+    std::cout << csi_timestamp(0,0) << std::endl;
+    std::cout << startIndexes.shape() << std::endl;
+    std::cout << endIndexes.shape() << std::endl;
     
     /* for interpolation, we need to check these conditions are false
     ** csi_timestamp.min().item() < trajectory_timestamp.min().item() ====> condition 1
@@ -1414,7 +1415,7 @@ std::pair<nc::NdArray<std::complex<double>>,nc::NdArray<double>> WSR_Util::getCo
         {
             //Antenna 1---->2. The orientation is calculated from antenna 2's perspective.
             //h2 . h1*
-            temp1(0,h_i) = rx_robot[itr_l].csi[h_i][1] * nc::conj(rx_robot[itr_l].csi[h_i][0]); //using complex conjugate
+            temp1(0,h_i) = rx_robot[itr_l].csi[h_i][0] * nc::conj(rx_robot[itr_l].csi[h_i][1]); //using complex conjugate
         }
         assert(temp2(0,0) != rx_robot[itr_l].ts);
         temp2(0,0) = rx_robot[itr_l].ts;
