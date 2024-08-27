@@ -473,8 +473,10 @@ nc::NdArray<double> WSR_Module::compute_profile_bartlett(
     //====Openmp implementation 0.2 sec faster =============.
     if(__displacement_type == "2D")
         get_bterm_all_subcarrier_2D(std::ref(e_term), std::ref(eigen_pitch_list), std::ref(eigen_yaw_list), std::ref(eigen_rho_list));
-    else
+    else {
+        std::cout << "**************************** Get bterm 3D ****************************" << std::endl;
         get_bterm_all_subcarrier_3D(std::ref(e_term), std::ref(eigen_pitch_list), std::ref(eigen_yaw_list), std::ref(eigen_rho_list));
+    }
     //====Openmp implementation=============
     //========== Steering vector computation ================
 
@@ -655,10 +657,12 @@ nc::NdArray<double> WSR_Module::compute_profile_music(
     EigenDoubleMatrix e_term(__nphi * __ntheta, num_poses);
 
     //====Openmp implementation 0.2 sec faster =============.
-    if(__displacement_type == "2D")
+    if (__displacement_type == "2D")
         get_bterm_all_subcarrier_2D(std::ref(e_term), std::ref(eigen_pitch_list), std::ref(eigen_yaw_list), std::ref(eigen_rho_list));
-    else
+    else {
+        std::cout << "Get bterm 3D" << std::endl;
         get_bterm_all_subcarrier_3D(std::ref(e_term), std::ref(eigen_pitch_list), std::ref(eigen_yaw_list), std::ref(eigen_rho_list));
+    }
     //====Openmp implementation=============
     //========== Steering vector computation ================
 
@@ -1770,7 +1774,10 @@ nc::NdArray<double> WSR_Module::compute_conjugate_profile_bartlett_multithread(
     start = std::chrono::high_resolution_clock::now();
     std::cout << "Computing e_term_prod...." << std::endl;
     EigenDoubleMatrix e_term(__nphi * __ntheta, num_poses);
-    get_bterm_all_subcarrier_conjugate(std::ref(e_term), std::ref(eigen_yaw_list));
+    if(__displacement_type == "2D")
+        get_bterm_all_subcarrier_conjugate(std::ref(e_term), std::ref(eigen_yaw_list));
+    else
+        get_bterm_all_subcarrier_conjugate_3D(std::ref(e_term), std::ref(eigen_yaw_list));
     end = std::chrono::high_resolution_clock::now();
     std::cout << " Time elapsed for eterm_prod and eterm_exp:  " << (end - start) / std::chrono::milliseconds(1) << std::endl;
     //===========Openmp implementation=============.
@@ -1931,7 +1938,10 @@ nc::NdArray<double> WSR_Module::compute_conjuate_profile_music_offboard(
     EigenDoubleMatrix e_term(__nphi * __ntheta, num_poses);
 
     //===========Openmp implementation 0.2 sec faster =============.
-    get_bterm_all_subcarrier_conjugate(std::ref(e_term), std::ref(eigen_yaw_list));
+    if(__displacement_type == "2D")
+        get_bterm_all_subcarrier_conjugate(std::ref(e_term), std::ref(eigen_yaw_list));
+    else
+        get_bterm_all_subcarrier_conjugate_3D(std::ref(e_term), std::ref(eigen_yaw_list));
     std::cout << " Time elapsed for eterm_prod and eterm_exp:  " << (end - start) / std::chrono::milliseconds(1) << std::endl;
     //===========Openmp implementation=============.
 
@@ -2008,7 +2018,7 @@ nc::NdArray<double> WSR_Module::compute_conjuate_profile_music_offboard(
 //=============================================================================================================================
 /**
  * Description: Does not include division by lambda in the exponential term; can be used for different subcarriers 
- * Input:
+ * Input: 
  * Output:
  */
 void WSR_Module::get_bterm_all_subcarrier_conjugate(EigenDoubleMatrix &e_term,
@@ -2025,6 +2035,30 @@ void WSR_Module::get_bterm_all_subcarrier_conjugate(EigenDoubleMatrix &e_term,
         {                                                                                                      //Trig identity simplifies and also cancels out the -ve sign in -2j
             // e_term(i, j) = __antenna_separation*cos(__eigen_precomp_rep_phi(i, 0)-eigen_yaw_list(j,0))*cos(__eigen_precomp_rep_theta(i, 0));
             e_term(i, j) = __antenna_separation*cos(__eigen_precomp_rep_phi(i, 0)-eigen_yaw_list(j,0));
+        }
+    }
+}
+
+//=============================================================================================================================
+/**
+ * Description: Does not include division by lambda in the exponential term; can be used for different subcarriers 
+ * Input: 3D Eigen matrix for the exponential term, Eigen matrix for the yaw list
+ * Output: None
+ */
+void WSR_Module::get_bterm_all_subcarrier_conjugate_3D(EigenDoubleMatrix &e_term,
+                                                    EigenDoubleMatrix &eigen_yaw_list)
+{
+    std::cout << "Yaw list rows: " << eigen_yaw_list.rows() << std::endl;
+    std::cout << "Yaw list cols: " << eigen_yaw_list.cols() << std::endl;
+    int i = 0;
+    int j = 0;
+#pragma omp parallel for shared(e_term, eigen_yaw_list) private(i, j) collapse(2)
+    for (i = 0; i < e_term.rows(); i++)
+    {
+        for (j = 0; j < e_term.cols(); j++)
+        {                                                                                                      //Trig identity simplifies and also cancels out the -ve sign in -2j
+            e_term(i, j) = __antenna_separation*cos(__eigen_precomp_rep_phi(i, 0)-eigen_yaw_list(j,0))*cos(__eigen_precomp_rep_theta(i, 0));
+            // e_term(i, j) = __antenna_separation*cos(__eigen_precomp_rep_phi(i, 0)-eigen_yaw_list(j,0));
         }
     }
 }
