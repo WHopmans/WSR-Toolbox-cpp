@@ -8,28 +8,14 @@
 
 WSR_Util utils;
 constexpr bool __takeOwnership = true;
-
-//======================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- * */
+ 
 WSR_Module::WSR_Module(void) {}
 WSR_Module::~WSR_Module(void) {}
-
-//======================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- * */
-WSR_Module::WSR_Module(std::string config_fn)
-{
+ 
+WSR_Module::WSR_Module(std::string config_fn) {
     std::cout << "log-info  [Initialize]: ----- Started Initializations -----" << std::endl;
     std::ifstream input(config_fn);
-    if (input.fail())
-    {
+    if (input.fail()) {
         throw std::runtime_error("log-info  [Initialize]: Unable to open file " + config_fn);
     }
 
@@ -172,13 +158,6 @@ WSR_Module::WSR_Module(std::string config_fn)
     std::cout << "log-info  [Initialize]: ----- Finished Initializations ----- " << std::endl;
 }
 
-
-//======================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- * */
 int WSR_Module::calculate_AOA_profile(std::string rx_csi_file,
                                       std::unordered_map<std::string, std::string> tx_csi_file,
                                       nc::NdArray<double> displacement,
@@ -378,11 +357,7 @@ int WSR_Module::calculate_AOA_profile(std::string rx_csi_file,
 
     return ret_val;
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 nc::NdArray<double> WSR_Module::compute_profile_bartlett(
     const nc::NdArray<std::complex<double>> &input_h_list,
     const nc::NdArray<double> &input_pose_list)
@@ -750,12 +725,7 @@ nc::NdArray<double> WSR_Module::compute_profile_music(
     
     return angle_of_arrival_profile;
 }
-//======================================================================================================================
-/**
- * Description: Checks the signal phase CFO correction using forward-reverse method (ref WSR IJRR 2022)
- * Input: RX_SAR_ROBOT csi file name (reverse channel data) and TX_SAR_Robot(s) file(s) name(s)
- * Output: none
- * */
+ 
 int WSR_Module::test_csi_data(
     std::string rx_csi_file,
     std::unordered_map<std::string, std::string> tx_csi_file)
@@ -969,12 +939,7 @@ void WSR_Module::get_bterm_all_3D(EigencdMatrix &e_term_exp,
         }
     }
 }
-//=============================================================================================================================
-/**
- * Description: Does not include division by lambda in the exponential term; can be used for different subcarriers. Motion is 2D 
- * Input:
- * Output:
- */
+ 
 void WSR_Module::get_bterm_all_subcarrier_2D(
                 EigenDoubleMatrix &e_term,
                 EigenDoubleMatrix &eigen_pitch_list, 
@@ -995,12 +960,7 @@ void WSR_Module::get_bterm_all_subcarrier_2D(
         }
     }
 }
-//=============================================================================================================================
-/**
- * Description: Does not include division by lambda in the exponential term; can be used for different subcarriers 
- * Input:
- * Output:
- */
+ 
 void WSR_Module::get_bterm_all_subcarrier_3D(
                 EigenDoubleMatrix &e_term,
                 EigenDoubleMatrix &eigen_pitch_list, 
@@ -1023,12 +983,7 @@ void WSR_Module::get_bterm_all_subcarrier_3D(
         }
     }
 }
-//=============================================================================================================================
-/**
- * Description:
- * Input:
- * Output:
- * */
+
 std::pair<std::vector<double>, std::vector<double>> WSR_Module::find_topN()
 {
     std::cout << "log-info  [find_top_N] Getting top N angles from the AOA Profile" << std::endl;
@@ -1204,12 +1159,7 @@ std::pair<std::vector<double>, std::vector<double>> WSR_Module::find_topN()
     std::cout << "log-info  [find_top_N] Got top N angles from the AOA Profile" << std::endl;
     return std::make_pair(ret_phi, ret_theta);
 }
-//=============================================================================================================================
-/**
- * Description:
- * Input:
- * Output:
- * */
+
 std::pair<std::vector<double>, std::vector<double>> WSR_Module::find_topN_azimuth()
 {
 
@@ -1347,12 +1297,7 @@ std::pair<std::vector<double>, std::vector<double>> WSR_Module::find_topN_azimut
 
     return std::make_pair(ret_phi, ret_theta);
 }
-//======================================================================================================================
-/**
- * Description: Get the confidence of the AOA profile by calculating its variance 
- * Input:
- * Output:
- * */
+
 float WSR_Module::get_profile_variance(double phi_ind, double theta_ind)
 {
 
@@ -1375,12 +1320,7 @@ float WSR_Module::get_profile_variance(double phi_ind, double theta_ind)
 
     return sigma_f / sigma_n;
 }
-//======================================================================================================================
-/**
- * Description: Test the channel phase and CFO correction for two antenna SAR CSI data 
- * Input:
- * Output:
- * */
+ 
 int WSR_Module::test_csi_data_conjugate(std::string rx_csi_file)
 {
     std::cout << "log-info  [test_csi_data_conjugate (relative channel)] ============ Testing CSI data ==============" << std::endl;
@@ -1707,13 +1647,6 @@ int WSR_Module::calculate_AOA_using_csi_conjugate(std::string rx_csi_file,
     
 }
 
-
-/**=======================================================================================================
- * Description: Uses the complex conjugate steering vector formulation for SAR to compute AOA profile
- * Input: Relative channel and robot displacement
- * Output: AOA profile
- * */
-//=======================================================================================================
 nc::NdArray<double> WSR_Module::compute_conjugate_profile_bartlett_multithread(
                                 const nc::NdArray<std::complex<double>> &input_h_list,
                                 const nc::NdArray<double> &input_pose_list)
@@ -1844,13 +1777,7 @@ nc::NdArray<double> WSR_Module::compute_conjugate_profile_bartlett_multithread(
 
     return beta_profile;
 }
-
-//=============================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- */
+ 
 void WSR_Module::get_two_antenna_bterm_all(EigencdMatrix &e_term_exp,
                                            EigenDoubleMatrix &eigen_yaw_list)
 {
@@ -1868,12 +1795,7 @@ void WSR_Module::get_two_antenna_bterm_all(EigencdMatrix &e_term_exp,
         }
     }
 }
-
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 nc::NdArray<double> WSR_Module::compute_conjuate_profile_music_offboard(
                                 const nc::NdArray<std::complex<double>> &input_h_list,
                                 const nc::NdArray<double> &input_pose_list)
@@ -2288,108 +2210,59 @@ int WSR_Module::calculate_AOA_using_csi_conjugate_multiple(std::string rx_csi_fi
     return 0;
     
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 std::string WSR_Module::get_channel_data_output_filename(const std::string &tx_mac_id)
 {
     return __channel_data_output_file[tx_mac_id];
 }
-
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 bool WSR_Module::get__FLAG_two_antenna()
 {
     return __FLAG_two_antenna;
 }
-//=============================================================================================================================
-/**
- * Description: Returns all the AOA profiles calculated for multiple RX
- * Input:
- * Output:
- * */
+
 std::unordered_map<std::string, nc::NdArray<double>> WSR_Module::get_all_aoa_profile()
 {
     return __all_aoa_profiles;
 }
-//=============================================================================================================================
-/**
- * Description: Returns all the AOA profiles calculated for multiple RX
- * Input:
- * Output:
- * */
+
 std::unordered_map<std::string, std::vector<double>> WSR_Module::get_all_confidence()
 {
     return __all_topN_confidence;
 }
-/**
- * Description: Returns all the AOA profiles calculated for multiple RX
- * Input:
- * Output:
- * */
+
 std::unordered_map<std::string, std::pair<std::vector<double>, std::vector<double>>> WSR_Module::get_TX_topN_angles()
 {
     return __TX_top_N_angles;
 }
-
-//=============================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- * */
+ 
 void WSR_Module::get_block_exp(EigencdMatrix &output,
                                EigencdMatrix &input,
                                int start, int end, int rows, int cols)
 {
     output = input.block(start, end, rows, cols).array().exp();
 }
-//=============================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- * */
+ 
 void WSR_Module::get_eterm_3DAdjustment(EigencdMatrix &output,
                                         EigenDoubleMatrix &input)
 {
     output = -4.0 * std::complex<double>(0, 1) * M_PI / input.array();
 }
-//=============================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- * */
+ 
 void WSR_Module::get_matrix_block(EigenDoubleMatrix &output,
                                   EigenDoubleMatrix &input,
                                   int rows, int cols)
 {
     output = input.block(0, 0, rows, cols);
 }
-//=============================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- * */
+ 
 void WSR_Module::get_cwiseProduct(EigenDoubleMatrix &output,
                                   EigenDoubleMatrix &input1,
                                   EigenDoubleMatrix &input2)
 {
     output = input1.cwiseProduct(input2);
 }
-//======================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- * */
+ 
 void WSR_Module::get_cwiseProduct_openmp(EigenDoubleMatrix &output,
                                          EigenDoubleMatrix &input1,
                                          EigenDoubleMatrix &input2)
@@ -2404,12 +2277,7 @@ void WSR_Module::get_cwiseProduct_openmp(EigenDoubleMatrix &output,
             //   printf("Thread %d works on elemets %d", omp_get_thread_num(),j);
         }
 }
-//=============================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- * */
+ 
 void WSR_Module::get_cwiseProduct_cd(EigencdMatrix &output,
                                      EigenDoubleMatrix &input1,
                                      EigencdMatrix &input2)
@@ -2417,25 +2285,14 @@ void WSR_Module::get_cwiseProduct_cd(EigencdMatrix &output,
     // output = input1.cwiseProduct(input2);
     output = input1 * (-4.0 * std::complex<double>(0, 1) * M_PI / __lambda);
 }
-//=============================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- * */
+
 void WSR_Module::get_repmat(EigenDoubleMatrix &output,
                             EigenDoubleMatrix &input,
                             int rows, int cols)
 {
     output = input.replicate(rows, cols);
 }
-
-//=============================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- * */
+ 
 void WSR_Module::get_eigen_rep_angle_trig(EigenDoubleMatrix &output,
                                           EigenDoubleMatrix &input,
                                           std::string trig_operation)
@@ -2445,12 +2302,7 @@ void WSR_Module::get_eigen_rep_angle_trig(EigenDoubleMatrix &output,
     else
         output = input.array().cos();
 }
-//=============================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- * */
+ 
 void WSR_Module::get_eigen_rep_angle_trig_openmp(EigenDoubleMatrix &output,
                                                  EigenDoubleMatrix &input,
                                                  std::string trig_operation)
@@ -2484,11 +2336,7 @@ void WSR_Module::get_eigen_rep_angle_trig_openmp(EigenDoubleMatrix &output,
 }
 
 
-//=============================================================================================================================
-/**
- *
- *
- * */
+
 std::vector<std::vector<float>> WSR_Module::get_aoa_error(const std::pair<std::vector<double>, std::vector<double>> &topN_AOA,
                                                           std::pair<double, double> groundtruth_angles,
                                                           const string &traj_type)
@@ -2552,110 +2400,62 @@ std::vector<double> WSR_Module::top_aoa_error(double phi, double theta,
 
     return ret;
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 int WSR_Module::get_tx_pkt_count(const std::string &tx_mac_id)
 {
     return __tx_pkt_size[tx_mac_id];
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 int WSR_Module::get_rx_pkt_count(const std::string &tx_mac_id)
 {
     return __rx_pkt_size[tx_mac_id];
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 double WSR_Module::get_processing_time(const std::string &tx_mac_id)
 {
     return __perf_aoa_profile_cal_time[tx_mac_id];
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 double WSR_Module::get_memory_used(const std::string &tx_mac_id)
 {
     return __memory_used[tx_mac_id];
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 double WSR_Module::get_calculated_ts_offset(const std::string &tx_mac_id)
 {
     return __calculated_ts_offset[tx_mac_id];
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 double WSR_Module::get_cpdm(const std::string &tx_mac_id)
 {
     return __channel_phase_diff_mean[tx_mac_id];
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 double WSR_Module::get_cpd_stdev(const std::string &tx_mac_id)
 {
     return __channel_phase_diff_stdev[tx_mac_id];
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 double WSR_Module::get_scpm(const std::string &tx_mac_id)
 {
     return __static_channel_phase_mean[tx_mac_id];
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 double WSR_Module::get_scd_stdev(const std::string &tx_mac_id)
 {
     return __static_channel_phase_stdev[tx_mac_id];
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 int WSR_Module::get_paired_pkt_count(const std::string &tx_mac_id)
 {
     return __paired_pkt_count[tx_mac_id];
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 double WSR_Module::get_top_confidence(const std::string &tx_mac_id)
 {
     return __top_peak_confidence[tx_mac_id];
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 nlohmann::json WSR_Module::get_stats(double true_phi,
                                      double true_theta, 
                                      std::vector<vector<float>> &aoa_error,
@@ -2725,11 +2525,7 @@ nlohmann::json WSR_Module::get_stats(double true_phi,
 
     return output_stats;
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 nlohmann::json WSR_Module::get_performance_stats(const std::string &tx_mac_id,
                                                  const std::string &tx_name)
 {
@@ -2745,20 +2541,12 @@ nlohmann::json WSR_Module::get_performance_stats(const std::string &tx_mac_id,
 
     return perf_stats;
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 std::unordered_map<std::string, int> WSR_Module::get_paired_pkt_count()
 {
     return __paired_pkt_count;
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 nlohmann::json WSR_Module::get_stats_old_json(double true_phi,
                                               double true_theta, std::vector<vector<float>> &aoa_error,
                                               const std::string &tx_mac_id,
@@ -2786,12 +2574,7 @@ nlohmann::json WSR_Module::get_stats_old_json(double true_phi,
     std::cout << "Got json" << std::endl;
     return output_stats;
 }
-//======================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- * */
+ 
 int WSR_Module::calculate_AOA_profile_multi(std::string rx_csi_file,
                                       std::unordered_map<std::string, std::string> tx_csi_file,
                                       nc::NdArray<double> displacement,
@@ -3051,12 +2834,7 @@ int WSR_Module::calculate_AOA_profile_multi(std::string rx_csi_file,
 
     return ret_val;
 }
-//======================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- * */
+ 
 int WSR_Module::calculate_spoofed_AOA_profile(std::string rx_csi_file,
                                             std::unordered_map<std::string, std::string> tx_csi_file,
                                             nc::NdArray<double> displacement,
@@ -3314,21 +3092,12 @@ int WSR_Module::calculate_spoofed_AOA_profile(std::string rx_csi_file,
 
     return ret_val;
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 std::vector<double> WSR_Module::get_top_magnitudes(const std::string &tx_mac_id)
 {
     return __all_topN_magnitudes[tx_mac_id];
 }
-//=============================================================================================================================
-/**
- * Description: 
- * Input:
- * Output:
- */
+
 void WSR_Module::getExponential(EigencdMatrix &out,
                                 EigencdMatrix &in)
 {
@@ -3344,11 +3113,7 @@ void WSR_Module::getExponential(EigencdMatrix &out,
         }
     }
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 int WSR_Module::get_peak_num_above_threshold(const std::string &tx_mac_id)
 {
     return __all_topN_above_threshold[tx_mac_id];

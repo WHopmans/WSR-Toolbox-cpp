@@ -5,11 +5,7 @@
 
 #include "csitoolbox/WIFI_Agent.h"
 
-/**
- * Convert byte to string and creat array of CSI data packets.
- * The packet is added to a vector of packets which can be accessed via class object
- * return: None
-*/
+ 
 WIFI_Agent::WIFI_Agent(void){
     
     field_len = (uint16_t*) calloc (byte_count,sizeof(uint16_t)*byte_count);
@@ -24,11 +20,7 @@ WIFI_Agent::WIFI_Agent(void){
         exit(2);
     }
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 WIFI_Agent::~WIFI_Agent(void){
     free (field_len);
     free (code);
@@ -58,9 +50,7 @@ std::vector<DataPacket> WIFI_Agent::get_wifi_data(std::string mac_id){
     return temp;
 }
 
-/**
- * Read a binay files size.
-*/
+ 
 int WIFI_Agent::getSize(std::string fn){
     std::streampos begin,end;
     csi_file__.open(fn.c_str(), std::ios::in | std::ios::binary);
@@ -73,27 +63,15 @@ int WIFI_Agent::getSize(std::string fn){
     }
     return file_size__;
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 void WIFI_Agent::updatePktCount(){
     pkt_count+=1;
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 int WIFI_Agent::getPktCount(){
     return pkt_count ;
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 void WIFI_Agent::saveDataPacket(DataPacket wifi_data_packet){
     wifi_data_packet_array.push_back(wifi_data_packet);
     std::string mac_id_str = mac2str(wifi_data_packet.mac_real);
@@ -107,20 +85,12 @@ void WIFI_Agent::saveDataPacket(DataPacket wifi_data_packet){
     }
 
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 void WIFI_Agent::reset(){
     wifi_data_packet_array.clear();
     pkt_count = 0;
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 std::string WIFI_Agent::mac2str(std::string const& s) {
 
     std::vector <std::string> mac_val; 
@@ -139,26 +109,14 @@ std::string WIFI_Agent::mac2str(std::string const& s) {
                          dec2hex(std::stoi(mac_val[5]));
     return output;
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
-std::string WIFI_Agent::dec2hex(unsigned int i)
-{
+ 
+std::string WIFI_Agent::dec2hex(unsigned int i) {
     std::stringstream ss;
     ss << std::hex << std::uppercase << i;
     return ss.str();
 }
-//Function to check if CSI is empty or not for a given packet
-
-//=============================================================================================================================
-/**
- *
- *
- * */
-void WIFI_Agent::simulate_spoofed_data(int spoofed_count)
-{
+ 
+void WIFI_Agent::simulate_spoofed_data(int spoofed_count) {
 
     int k = 0;
     std::string mac_id_str_original = wifi_data_packet_array[0].mac_real;
@@ -210,17 +168,11 @@ void WIFI_Agent::simulate_spoofed_data(int spoofed_count)
         k+=1;
     }
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
-std::vector<DataPacket> WIFI_Agent::get_wifi_data_spoofed(std::string mac_id)
-{
+ 
+std::vector<DataPacket> WIFI_Agent::get_wifi_data_spoofed(std::string mac_id) {
     std::vector<DataPacket> temp;
     std::set<std::string> unique_mac_id;
-    for (int i=0;i < wifi_spoofed_data_packet_array.size();i++)
-    {
+    for (int i=0;i < wifi_spoofed_data_packet_array.size(); i++) {
         if(wifi_spoofed_data_packet_array[i].mac_real == mac_id) 
         {
             // std::cout << wifi_spoofed_data_packet_array[i].frame_count << std::endl;
@@ -229,14 +181,9 @@ std::vector<DataPacket> WIFI_Agent::get_wifi_data_spoofed(std::string mac_id)
     }
     return temp;
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 void WIFI_Agent::simulate_spoofed_data_multiple(int spoofed_count,
-                                                std::string illegit_mac_id)
-{
+                                                std::string illegit_mac_id) {
 
     int k = 0;
     std::vector <std::string> mac_val; 
@@ -291,14 +238,9 @@ void WIFI_Agent::simulate_spoofed_data_multiple(int spoofed_count,
     }
     
 }
-//=============================================================================================================================
-/**
- *
- *
- * */
+ 
 void WIFI_Agent::simulate_spoofed_data_second(int spoofed_count,
-                                                std::string illegit_mac_id)
-{
+                                                std::string illegit_mac_id) {
 
     int k = 0;
     std::vector <std::string> mac_val; 

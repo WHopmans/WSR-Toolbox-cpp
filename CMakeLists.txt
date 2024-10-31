@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 3.0)
 project(wsr-toolbox-cpp)
 
+set(CMAKE_C_COMPILER "/usr/bin/gcc")
+set(CMAKE_CXX_COMPILER "/usr/bin/g++")
+
 ## Compile as C++11, supported in ROS Kinetic and newer
 
 add_compile_options(-std=c++17 -pthread
@@ -71,19 +74,36 @@ add_executable(test_wsr_two_antenna_rotor src/test_wsr_two_antenna_rotor.cpp src
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-
-target_link_libraries(test_csi_data
- -Wl,--no-as-needed -lgomp -lpthread -lm -ldl
- ${BOOST_LIBRARIES} OpenMP::OpenMP_CXX
+target_link_libraries (
+  test_csi_data
+  -Wl,--no-as-needed  # Ensures all symbols from linked libs are included
+  -lgomp              # Links the GNU OpenMP library
+  -lpthread           # Links the POSIX threads library 
+  -lm                 # Links the math library 
+  -ldl                # Links the dynamic loader library
+  ${BOOST_LIBRARIES}  # Links the Boost libraries
+  OpenMP::OpenMP_CXX  # Links the OpenMP library for C++ code
 )
-target_link_libraries(test_wsr
-   -Wl,--no-as-needed -lgomp -lpthread -lm -ldl
-   ${BOOST_LIBRARIES} OpenMP::OpenMP_CXX
- )
-target_link_libraries(test_wsr_two_antenna_rotor
-   -Wl,--no-as-needed -lgomp -lpthread -lm -ldl
-   ${BOOST_LIBRARIES} OpenMP::OpenMP_CXX  
-  )
+target_link_libraries (
+  test_wsr
+  -Wl,--no-as-needed  # Ensures all symbols from linked libs are included
+  -lgomp              # Links the GNU OpenMP library
+  -lpthread           # Links the POSIX threads library 
+  -lm                 # Links the math library 
+  -ldl                # Links the dynamic loader library
+  ${BOOST_LIBRARIES}  # Links the Boost libraries
+  OpenMP::OpenMP_CXX  # Links the OpenMP library for C++ code
+)
+target_link_libraries (
+  test_wsr_two_antenna_rotor
+  -Wl,--no-as-needed  # Ensures all symbols from linked libs are included
+  -lgomp              # Links the GNU OpenMP library
+  -lpthread           # Links the POSIX threads library 
+  -lm                 # Links the math library 
+  -ldl                # Links the dynamic loader library
+  ${BOOST_LIBRARIES}  # Links the Boost libraries
+  OpenMP::OpenMP_CXX  # Links the OpenMP library for C++ code
+)
 
 #############
 ## Install ##

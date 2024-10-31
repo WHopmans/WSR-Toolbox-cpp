@@ -106,7 +106,7 @@
         "value":{
             "tx1":{
                 "mac_id":"00:21:6A:B7:7C:6C",
-                "csi_fn":"Downloads/WSR-Toolbox-cpp/data/Sample_data/two_antenna/csi_tx.dat"            
+                "csi_fn":"Desktop/WSR-Toolbox-cpp/data/Sample_data/two_antenna/csi_tx.dat"            
             }
         }
     },
@@ -119,16 +119,16 @@
         "desc":"Reverse channel csi File stored on the RX robot which is performing 3D SAR",
         "value":{           
             "mac_id":"00:21:6A:69:51:7A",
-            "csi_fn":"/Downloads/WSR-Toolbox-cpp/data/Sample_data/two_antenna/csi_rx.dat"
+            "csi_fn":"/Desktop/WSR-Toolbox-cpp/data/Sample_data/two_antenna/csi_rx.dat"
         }
     },
     "input_displacement_csv_fn_rx":{
         "desc":"Groundtruth motion capture displacement file (gt)",
-        "value":"/Downloads/WSR-Toolbox-cpp/data/Sample_data/two_antenna/gt_displacement_2024-08-22_141518.csv"
+        "value":"/Desktop/WSR-Toolbox-cpp/data/Sample_data/two_antenna/gt_displacement_2024-08-22_141518.csv"
     },
     "output_aoa_profile_path":{
         "desc":"AOA profile",
-        "value":"/Downloads/WSR-Toolbox-cpp/debug/"
+        "value":"/Desktop/WSR-Toolbox-cpp/debug/"
     },
     "max_packets_to_process":{
         "desc":"Maximum number of csi packets to process",
@@ -140,7 +140,7 @@
     },
     "debug_dir":{
         "desc":"dir to save intermediate data files for debugging",
-        "value":"/Downloads/WSR-Toolbox-cpp/debug/"
+        "value":"/Desktop/WSR-Toolbox-cpp/debug/"
     },
     "time_offset": {
         "desc": "offset for time diff on different robots",

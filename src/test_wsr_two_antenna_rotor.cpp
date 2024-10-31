@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
     WSR_Module run_module(config);
 
     /*================== Process RX_SAR_Robot files ====================*/
-    std::string reverse_csi = run_module.__precompute_config["input_RX_channel_csi_fn"]["value"]["csi_fn"].dump();
+    std::string reverse_csi = run_module.__precompute_config["input_RX_channel_csi_fn"]["v   alue"]["csi_fn"].dump();
     std::string trajectory_file_rx;
     if(__d_type == "gt")
         trajectory_file_rx = run_module.__precompute_config["input_trajectory_csv_fn_rx"]["value"].dump();

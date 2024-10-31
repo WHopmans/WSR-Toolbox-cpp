@@ -114,12 +114,12 @@ std::pair<std::vector<std::string>, std::vector<vector<double>>> WSR_Main::gener
         displacement_timestamp = return_val.first;
         displacement = return_val.second;
     }
-    else
-    {
-        auto return_val = utils.formatTrajectory_v2(trajectory_rx,antenna_offset,pos,__d_type,__Flag_get_mean_pos,true);
-        displacement_timestamp = return_val.first;
-        displacement = return_val.second;
-    }
+    // else
+    // {
+    //     auto return_val = utils.formatTrajectory_v2(trajectory_rx,antenna_offset,pos,__d_type,__Flag_get_mean_pos,true);
+    //     displacement_timestamp = return_val.first;
+    //     displacement = return_val.second;
+    // }
 
     // //Get all True AOA angles
     // nlohmann::json true_positions_tx = run_module.__precompute_config["true_tx_positions"];
