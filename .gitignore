@@ -12,4 +12,7 @@ Cython_modules/wsr_module.cpp
 *__init__*
 wsr_build
 cmake-build-release/
-
+scripts/zzRunning.txt
+.venv/
+.venv/lib/python3.7/site-packages/kaleido
+**/.venv/

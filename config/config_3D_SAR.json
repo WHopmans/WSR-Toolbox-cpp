@@ -133,7 +133,7 @@
     },
     "output_aoa_profile_path": {
         "desc": "AOA profile",
-        "value": "/thesis/GitHub/WSR-Toolbox-cpp/data/single_antenna/data_10cm_1/debug/"
+        "value": "/thesis/GitHub/WSR-Toolbox-cpp/data/single_antenna/data_10cm_1/output/"
     },
     "max_packets_to_process": {
         "desc": "Maximum number of csi packets to process",

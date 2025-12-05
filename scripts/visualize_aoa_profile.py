@@ -13,6 +13,7 @@ from matplotlib import cm
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import pandas as pd
+import os
 
 def main():
     parser = argparse.ArgumentParser()
@@ -65,6 +66,14 @@ def main():
     # ax.set_title('AOA profile')
 
     # plt.show()
+
+    # save the figures (requires pip install kaleido)
+
+    base, _ = os.path.splitext(args.file)
+    out_png = base + ".png"  
+    fig.write_image(out_png, width=1600, height=600)
+    print(f"Saved PNG to: {out_png}")
+
 
 if __name__ == "__main__":
     main()
