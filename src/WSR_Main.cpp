@@ -49,6 +49,13 @@ std::pair<std::vector<std::string>, std::vector<vector<double>>> WSR_Main::gener
     nc::NdArray<double> displacement;
     nc::NdArray<double> displacement_timestamp;
     
+    // debugging the combination of Alex and Ninad's code
+    std::cout << "[WSR_Main] traj_fn_rx = " << traj_fn_rx << std::endl;
+    std::cout << "[WSR_Main] trajectory_rx rows = " << trajectory_rx.size()
+          << ", cols = " << (trajectory_rx.empty() ? 0 : trajectory_rx[0].size())
+          << std::endl;
+
+
     /*============= Process the TX_SAR_Robot files =======================*/
     std::unordered_map<std::string,std::string> tx_robot_csi;
 
@@ -114,13 +121,19 @@ std::pair<std::vector<std::string>, std::vector<vector<double>>> WSR_Main::gener
         displacement_timestamp = return_val.first;
         displacement = return_val.second;
     }
-    // else
-    // {
-    //     auto return_val = utils.formatTrajectory_v2(trajectory_rx,antenna_offset,pos,__d_type,__Flag_get_mean_pos,true);
-    //     displacement_timestamp = return_val.first;
-    //     displacement = return_val.second;
-    // }
+    else
+    {
+        auto return_val = utils.formatTrajectory_v2(trajectory_rx,antenna_offset,pos,__d_type,__Flag_get_mean_pos,true);
+        displacement_timestamp = return_val.first;
+        displacement = return_val.second;
+    }
+    // debugging
 
+    std::cout << "[WSR_Main] displacement shape = "
+          << displacement.shape()
+          << ", disp_ts shape = " << displacement_timestamp.shape()
+          << std::endl;
+    
     // //Get all True AOA angles
     // nlohmann::json true_positions_tx = run_module.__precompute_config["true_tx_positions"];
     // auto all_true_AOA = utils.get_true_aoa(trajectory_rx, true_positions_tx); //Fix this when using moving ends.

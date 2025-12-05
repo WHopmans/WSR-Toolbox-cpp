@@ -669,7 +669,13 @@ std::pair<nc::NdArray<double>, nc::NdArray<double>> WSR_Util::formatTrajectory_v
                             bool __Flag_get_mean_pos,
                             bool __Flag_offset)
 {
+    // debuggin 2025
+    std::cout << "[formatTrajectory_v2] input rows = " << rx_trajectory.size()
+          << ", cols = " << (rx_trajectory.empty() ? 0 : rx_trajectory[0].size())
+          << ", traj_type = " << traj_type
+          << std::endl;
 
+    
     nc::NdArray<double> displacement(rx_trajectory.size(),4); //x,y,z,yaw
     nc::NdArray<double> trajectory_timestamp(rx_trajectory.size(),1);
     std::cout.precision(9);
@@ -814,6 +820,11 @@ std::pair<nc::NdArray<double>, nc::NdArray<double>> WSR_Util::formatTrajectory_v
 
     std::cout << sorted_trajectory_timestamp({start_index,end_index},sorted_trajectory_timestamp.cSlice()).shape() <<std::endl;
     //std::cout << "sorted traj shape " << sorted_displacement({start_index,end_index},nc::Slice(0, 3)).shape() << std::endl;
+    // deubgging 2025
+    std::cout << "[formatTrajectory_v2] output displacement rows = "
+          << displacement.shape().rows
+          << ", cols = " << displacement.shape().cols
+          << std::endl;
 
     return std::make_pair(sorted_trajectory_timestamp({start_index,end_index},sorted_trajectory_timestamp.cSlice()), 
                          sorted_displacement({start_index,end_index},nc::Slice(0, 4)));
