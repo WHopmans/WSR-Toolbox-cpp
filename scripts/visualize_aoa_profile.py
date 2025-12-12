@@ -8,8 +8,6 @@
 #from mpl_toolkits.mplot3d import Axes3D
 import argparse
 import numpy as np
-import matplotlib.pyplot as plt
-from matplotlib import cm
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import pandas as pd
@@ -71,8 +69,10 @@ def main():
 
     base, _ = os.path.splitext(args.file)
     out_png = base + ".png"  
-    fig.write_image(out_png, width=1600, height=600)
-    print(f"Saved PNG to: {out_png}")
+    out_html = out_png.replace('.png', '.html')
+    fig.write_html(out_html)
+    print(f"Success! Saved interactive plot to: {out_html}")
+
 
 
 if __name__ == "__main__":
