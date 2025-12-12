@@ -178,7 +178,9 @@ void WSR_Util::read_bfee_timestamp_mac(uint8_t *inBytes, WIFI_Agent& robot)
 	unsigned int len = 1, calc_len = 0;
 	unsigned int i, j;
 	unsigned int index = 0, remainder;
-	char tmp1, tmp2;
+	// char tmp1, tmp2;
+    // Altered in Dec 2025 since different compiler may treat char signed/unsigned differently
+    int8_t tmp1, tmp2;
 
 	wifi_data_packet.timestamp_low = inBytes[0] + (inBytes[1] << 8) +
 		(inBytes[2] << 16) + (inBytes[3] << 24);
@@ -243,6 +245,13 @@ void WSR_Util::read_bfee_timestamp_mac(uint8_t *inBytes, WIFI_Agent& robot)
 			index += 16;
 
             std::complex<double> tmp_complex (tmp1, tmp2);
+
+            if (std::abs(tmp_complex.real()) > 128.0) {
+                std::cerr << "[CRITICAL ERROR] Data is STILL Unsigned! Value: " 
+                << tmp_complex.real() << " (Should be negative)" << std::endl;
+                 exit(1); // Force crash so you notice it
+            }
+
             wifi_data_packet.csi[i][j] = tmp_complex;
 		}
         // std::cout << std::endl;
@@ -377,7 +386,7 @@ std::pair<nc::NdArray<std::complex<double>>,nc::NdArray<double>> WSR_Util::getFo
                 //multiply forward and reverse channel
                 for(int h_i = 0;h_i< 30; h_i++)
                 {
-                    temp1(0,h_i) = rx_robot[itr_l].csi[h_i][0] * tx_robot[itr_k].csi[h_i][0]; //Use CSI from first antenna only
+                    temp1(0,h_i) = rx_robot[itr_l].csi[h_i][0] * std::conj(tx_robot[itr_k].csi[h_i][0]); //Use CSI from first antenna only
                 }
                 if(interpolate_phase) 
                 {

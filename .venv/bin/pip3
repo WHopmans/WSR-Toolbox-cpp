@@ -1,4 +1,4 @@
-#!/home/wardhop/thesis/GitHub/WSR-Toolbox-cpp/.venv/bin/python3.7
+#!/home/wardhop/thesis/GitHub/WSR-Toolbox-cpp/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
