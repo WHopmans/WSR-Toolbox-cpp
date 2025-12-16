@@ -7,7 +7,7 @@ Core C++ code repo for WSR toolbox with Cython wrapper.
 - [x] Ubuntu 16.04
 - [x] Ubuntu 18.04
 - [x] Ubuntu 20.04
-- [ ] TX2
+- [x] Ubuntu 22.04
 
 ### C++ version tested and supported
 - ~~[ ] c++11~~
@@ -16,29 +16,29 @@ Core C++ code repo for WSR toolbox with Cython wrapper.
 - [ ] c++20
 
 ### Python version tested
-- ~~[ ] python 3.5~~
-- ~~[ ] python 3.6~~
 - [x] python 3.7
 - [x] python 3.8
+- [x] python 3.14
 
 ### GCC version tested
 - [x] gcc 5.4.0
 - [x] gcc 9.3.0
+- [x] gcc 11.4.0
 
 ## Setup instructions
 
 1. Create a directory named WSR_Project and clone the repository in that directory.
 
-2. Install python 3.7 (minimum supported version for using visualization scripts) and make it default version
+2. Install python 3.14 (minimum supported version for using visualization scripts) and make it default version
 ```
 sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update
-sudo apt install python3.7 python3.7-tk python3-pip python3.7-dev python3-gdbm cmake
+sudo apt install python3.14 python3.14-tk python3-pip python3.14-dev python3-gdbm cmake
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.5 1
 sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.7 2
 sudo update-alternatives --config python3
 ```
-Select python3.7 as the default version.
+Select python3.14 as the default version.
 
 3. Install the python dependency packages
 ```

@@ -91,7 +91,7 @@
         "value": {
             "tx1": {
                 "mac_id": "00:21:6A:C0:CB:2A",
-                "csi_fn": "/thesis/wsr_data/single_antenna/data_right_3/csi_tx_right_3.dat"
+                "csi_fn": "/thesis/wsr_data/single_antenna/data_10cm_2/csi_tx_10cm_2.dat"
             }
         }
     },
@@ -108,16 +108,16 @@
         "desc": "Reverse channel csi File stored on the RX robot which is performing 3D SAR",
         "value": {
             "mac_id": "00:21:6A:45:E1:66",
-            "csi_fn": "/thesis/wsr_data/single_antenna/data_right_3/csi_rx_right_3.dat"
+            "csi_fn": "/thesis/wsr_data/single_antenna/data_10cm_2/csi_rx_10cm_2.dat"
         }
     },
     "input_displacement_csv_fn_rx": {
         "desc": "(gt) not actually ground truth, but odometry sensor on robot",
-        "value": "/thesis/wsr_data/single_antenna/data_right_3/rx_movement_right_3.csv"
+        "value": "/thesis/wsr_data/single_antenna/data_10cm_2/rx_movement_10cm_2.csv"
     },
     "input_trajectory_csv_fn_rx": {
         "desc": "Ground truth trajectory for RX, is actually odometry sensor on robot",
-        "value": "/thesis/wsr_data/single_antenna/data_right_3/rx_movement_right_3.csv"
+        "value": "/thesis/wsr_data/single_antenna/data_10cm_2/rx_movement_10cm_2.csv"
     },
     "input_orientation_csv_fn_rx_joint": {
         "desc": "Orientation of indepdendently rotating platform (only supports 2D)",
@@ -129,7 +129,7 @@
     },
     "output_aoa_profile_path": {
         "desc": "AOA profile",
-        "value": "/thesis/wsr_data/single_antenna/data_right_3/output_wsr/"
+        "value": "/thesis/wsr_data/single_antenna/data_10cm_2/output_wsr/"
     },
     "max_packets_to_process": {
         "desc": "Maximum number of csi packets to process",
@@ -141,7 +141,7 @@
     },
     "debug_dir": {
         "desc": "dir to save intermediate data files for debugging",
-        "value": "/thesis/wsr_data/single_antenna/data_right_3/debug_wsr/"
+        "value": "/thesis/wsr_data/single_antenna/data_10cm_2/debug_wsr/"
     },
     "time_offset": {
         "desc": "offset for time diff on different robots",

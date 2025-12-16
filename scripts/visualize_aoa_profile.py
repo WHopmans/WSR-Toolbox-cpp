@@ -33,7 +33,7 @@ def main():
     fig.add_trace(go.Surface(z=z_data.values,x=x_val,y=y_val),row=1, col=1)
     fig.add_trace(go.Heatmap(z=z_data.values,x=x_val,y=y_val),row=1, col=2)
     fig.update_layout(title='AOA profile', xaxis_title="Azimuth angle(Degrees)", yaxis_title="Elevation angle (degrees)",)
-    fig.show()
+    # fig.show()
 
     # X = np.arange(0, 2*args.nphi-1, 1).flatten()
     # Y = np.arange(0, args.ntheta-1, 1).flatten()
